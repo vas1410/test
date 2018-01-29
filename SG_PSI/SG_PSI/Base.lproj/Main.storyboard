@@ -12,10 +12,11 @@
     <customFonts key="customFonts">
         <array key="HelveticaNeue.ttc">
             <string>HelveticaNeue</string>
+            <string>HelveticaNeue-Bold</string>
         </array>
     </customFonts>
     <scenes>
-        <!--Ship-->
+        <!--PSI Index-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SG_PSI" customModuleProvider="target" sceneMemberID="viewController">
@@ -263,10 +264,56 @@
                                     <segment title="24-hr PSI"/>
                                     <segment title="1-hr PM2.5"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segmentAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="r2Z-tC-jA5"/>
+                                </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YGL-TQ-zuB">
                                 <rect key="frame" x="0.0" y="433" width="375" height="234"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PSICell" rowHeight="50" id="TkI-mq-YLS" customClass="PSICell" customModule="SG_PSI" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TkI-mq-YLS" id="zGL-RE-ToF">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uM2-g4-DTe">
+                                                    <rect key="frame" x="15" y="10" width="165" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="bJO-Jm-hW7"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                                    <color key="textColor" red="0.086274509799999996" green="0.58823529409999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lX3-FU-Pqo">
+                                                    <rect key="frame" x="195" y="10" width="165" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="v0X-kb-wpX"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                                    <color key="textColor" red="1" green="0.64620708434722385" blue="0.61295441785694127" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="uM2-g4-DTe" firstAttribute="centerY" secondItem="zGL-RE-ToF" secondAttribute="centerY" id="Co7-cp-tL3"/>
+                                                <constraint firstItem="uM2-g4-DTe" firstAttribute="leading" secondItem="zGL-RE-ToF" secondAttribute="leading" constant="15" id="HOA-xu-yF0"/>
+                                                <constraint firstAttribute="trailing" secondItem="lX3-FU-Pqo" secondAttribute="trailing" constant="15" id="NPm-z6-326"/>
+                                                <constraint firstItem="lX3-FU-Pqo" firstAttribute="width" secondItem="uM2-g4-DTe" secondAttribute="width" id="Uf7-RB-HyQ"/>
+                                                <constraint firstItem="lX3-FU-Pqo" firstAttribute="centerY" secondItem="zGL-RE-ToF" secondAttribute="centerY" id="W1z-Ew-kYP"/>
+                                                <constraint firstItem="lX3-FU-Pqo" firstAttribute="leading" secondItem="uM2-g4-DTe" secondAttribute="trailing" constant="15" id="swL-kv-mdN"/>
+                                                <constraint firstItem="lX3-FU-Pqo" firstAttribute="height" secondItem="uM2-g4-DTe" secondAttribute="height" id="tX0-mi-fBN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lblHeader" destination="uM2-g4-DTe" id="Nbc-K2-fGc"/>
+                                            <outlet property="lblValue" destination="lX3-FU-Pqo" id="80D-kK-UXs"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="apn-AR-UfZ"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="zBl-Q8-n0Y"/>
@@ -287,7 +334,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Ship" id="tks-M5-QDl"/>
+                    <navigationItem key="navigationItem" title="PSI Index" id="tks-M5-QDl"/>
                     <connections>
                         <outlet property="lblCenter" destination="pii-qm-JSr" id="YBm-ms-hJi"/>
                         <outlet property="lblEast" destination="hwJ-j8-PXD" id="bNY-4d-39K"/>
@@ -295,6 +342,7 @@
                         <outlet property="lblSouth" destination="Ssa-PI-kyp" id="YK4-fj-bM3"/>
                         <outlet property="lblUpdatedTimeStamp" destination="PqZ-nV-tPK" id="77y-Af-SbJ"/>
                         <outlet property="lblWest" destination="Nue-qE-RtV" id="6A0-Je-xKO"/>
+                        <outlet property="segmentCtrl" destination="cxj-vt-TDR" id="s04-gl-hip"/>
                         <outlet property="tblview" destination="YGL-TQ-zuB" id="UDc-IY-J0h"/>
                     </connections>
                 </viewController>

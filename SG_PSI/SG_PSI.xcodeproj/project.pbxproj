@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D699713201F87FB00C693C5 /* PSICell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D699712201F87FB00C693C5 /* PSICell.swift */; };
 		80AD1A4264E182A6486F0DA6 /* Pods_SG_PSI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 512DDB1F2DFFA4258635E21C /* Pods_SG_PSI.framework */; };
 		85C0627BAF7586CC52215619 /* Pods_SG_PSIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5181BDEBCFCEAC1FC3026F06 /* Pods_SG_PSIUITests.framework */; };
 		982506481AF97ADDB4F4D745 /* Pods_SG_PSITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFCE17FF91ACC65E43A2BAA4 /* Pods_SG_PSITests.framework */; };
@@ -44,6 +45,7 @@
 		512DDB1F2DFFA4258635E21C /* Pods_SG_PSI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SG_PSI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5181BDEBCFCEAC1FC3026F06 /* Pods_SG_PSIUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SG_PSIUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AB09306A68D96ADFFE3F162 /* Pods-SG_PSI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SG_PSI.release.xcconfig"; path = "Pods/Target Support Files/Pods-SG_PSI/Pods-SG_PSI.release.xcconfig"; sourceTree = "<group>"; };
+		5D699712201F87FB00C693C5 /* PSICell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSICell.swift; sourceTree = "<group>"; };
 		6C333D982E9E9200C7EE27D3 /* Pods-SG_PSITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SG_PSITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SG_PSITests/Pods-SG_PSITests.release.xcconfig"; sourceTree = "<group>"; };
 		775CB0F4F29C57AF8E2E4351 /* Pods-SG_PSITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SG_PSITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SG_PSITests/Pods-SG_PSITests.debug.xcconfig"; sourceTree = "<group>"; };
 		96FA6565E6D20D509FF818F8 /* Pods-SG_PSIUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SG_PSIUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SG_PSIUITests/Pods-SG_PSIUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				D57A0568201ED031006102F3 /* ApiManager.swift */,
 				D57A053A201EC3EA006102F3 /* AppDelegate.swift */,
 				D57A053C201EC3EA006102F3 /* ViewController.swift */,
+				5D699712201F87FB00C693C5 /* PSICell.swift */,
 				D57A053E201EC3EA006102F3 /* Main.storyboard */,
 				D57A0541201EC3EA006102F3 /* Assets.xcassets */,
 				D57A0543201EC3EA006102F3 /* LaunchScreen.storyboard */,
@@ -316,9 +319,18 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SG_PSI/Pods-SG_PSI-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
+				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -346,13 +358,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SG_PSI-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		72F5E47D300DE2E1D9410AF3 /* [CP] Check Pods Manifest.lock */ = {
@@ -361,13 +376,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SG_PSIUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A5C87F60B428C9E3B1DCF216 /* [CP] Embed Pods Frameworks */ = {
@@ -436,13 +454,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SG_PSITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -453,6 +474,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D57A053D201EC3EA006102F3 /* ViewController.swift in Sources */,
+				5D699713201F87FB00C693C5 /* PSICell.swift in Sources */,
 				D57A0569201ED031006102F3 /* ApiManager.swift in Sources */,
 				D57A053B201EC3EA006102F3 /* AppDelegate.swift in Sources */,
 				D59F0BFA201ED92A00A4E4F3 /* Constants.swift in Sources */,

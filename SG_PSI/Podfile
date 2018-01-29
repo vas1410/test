@@ -8,6 +8,8 @@ target 'SG_PSI' do
   # Pods for SG_PSI
   pod 'Alamofire'
   pod 'SwiftyJSON'
+  pod 'Quick'
+  pod 'Nimble'
 
   target 'SG_PSITests' do
     inherit! :search_paths

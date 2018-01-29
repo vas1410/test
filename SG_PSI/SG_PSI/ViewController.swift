@@ -12,13 +12,16 @@ import Alamofire
 import SwiftyJSON
 class ViewController: UIViewController {
     @IBOutlet weak var lblNorth: UILabel!
+    @IBOutlet weak var segmentCtrl: UISegmentedControl!
     @IBOutlet weak var lblEast: UILabel!
     @IBOutlet weak var lblSouth: UILabel!
     @IBOutlet weak var lblWest: UILabel!
     @IBOutlet weak var lblCenter: UILabel!
     @IBOutlet weak var lblUpdatedTimeStamp: UILabel!
     @IBOutlet weak var tblview: UITableView!
-    
+    var fulldayPSI : [[String:String]] = ["Moderate":"30-50","Good":"51-101","Bad":"101-201","Worst":"201-300"]
+    var hourPsi   = ["Moderate":"30-50","Good":"51-101","Bad":"101-201"]
+    var selectedPSIArr = [String:String]()
     override func viewDidLoad() {
         super.viewDidLoad()
        checkweather()
@@ -59,6 +62,38 @@ class ViewController: UIViewController {
     @IBAction func refreshAction(_ sender: Any) {
         checkweather()
     }
+    @IBAction func segmentAction(_ sender: UISegmentedControl) {
+        
+        self.tblview.reloadData()
+        
+    }
     
 }
+
+// MARK: - TableView Delegate -
+extension ViewController: UITableViewDelegate, UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        selectedPSIArr.removeAll()
+        if segmentCtrl.selectedSegmentIndex == 0{
+         selectedPSIArr = fulldayPSI
+        }else{
+        selectedPSIArr = hourPsi
+        }
+        return selectedPSIArr.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier:"PSICell") as! PSICell
+        let dict = selectedPSIArr[indexPath.row]
+        cell.lblHeader.text = dict.keys.first
+        cell.lblValue.text = dict.values.first
+        cell.selectionStyle = .none
+        return cell
+    }
+    
+   
+}
+
 
