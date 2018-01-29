@@ -1,0 +1,6 @@
+framework module Pods_SG_PSI {
+  umbrella header "Pods-SG_PSI-umbrella.h"
+
+  export *
+  module * { export * }
+}
