@@ -68,18 +68,11 @@ class ApiManager {
         
         request?.validate()
         request?.responseJSON { response in
-            
-            print("\n------------------------>")
-            print("Original Response : \(response.debugDescription)")
-            print("<------------------------|\n")
-            
+        
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             if response.result.isSuccess {
                 
                 let responseObject = JSON(response.result.value!)
-               // let status: Int = responseObject["status"].intValue
-                
-                //let successObject = responseObject[self.resultKey]
                 success(responseObject)
                 
             } else {

@@ -7,7 +7,25 @@
 		<key>SG_PSI.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>6</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>D57A0536201EC3EA006102F3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D57A054A201EC3EA006102F3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D57A0555201EC3EA006102F3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

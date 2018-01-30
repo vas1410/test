@@ -19,9 +19,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblCenter: UILabel!
     @IBOutlet weak var lblUpdatedTimeStamp: UILabel!
     @IBOutlet weak var tblview: UITableView!
-    var fulldayPSI : [[String:String]] = ["Moderate":"30-50","Good":"51-101","Bad":"101-201","Worst":"201-300"]
-    var hourPsi   = ["Moderate":"30-50","Good":"51-101","Bad":"101-201"]
-    var selectedPSIArr = [String:String]()
+    @IBOutlet weak var lbltblviewTitle: UILabel!
+    var  sucessObject: JSON!
+    var psireading : PSIReadings!
+    
+    
+    
+    var fulldayPSI  = [["Good" : "0-50"],["Moderate" : "51-100"], ["Unhealthy" : "101-200"], ["Very Unhealthy" : "201-300"], ["Hazardous" : "Above 300"]]
+    var hourPsi   = [ ["Band I (Normal)" : "0-55"],["Band II  (Elevated)" : "56-150"], ["Band III (High)" : "151-250"], ["Band IV (Very High)" : "Above 250"]]
+    var selectedPSIArr = [[String:String]]()
     override func viewDidLoad() {
         super.viewDidLoad()
        checkweather()
@@ -34,16 +40,17 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func checkweather(){
+    func checkweather() {
             
             ApiManagerss.checkAppVersion( { (successReturnObject) in
-                self.lblEast.text = successReturnObject["items"][0]["readings"]["psi_twenty_four_hourly"]["east"].stringValue
+                /*self.lblEast.text = successReturnObject["items"][0]["readings"]["psi_twenty_four_hourly"]["east"].stringValue
                 self.lblWest.text = successReturnObject["items"][0]["readings"]["psi_twenty_four_hourly"]["west"].stringValue
                 self.lblNorth.text = successReturnObject["items"][0]["readings"]["psi_twenty_four_hourly"]["north"].stringValue
                 self.lblSouth.text = successReturnObject["items"][0]["readings"]["psi_twenty_four_hourly"]["south"].stringValue
                 self.lblCenter.text = successReturnObject["items"][0]["readings"]["psi_twenty_four_hourly"]["central"].stringValue
-                self.lblUpdatedTimeStamp.text = successReturnObject["items"][0]["update_timestamp"].stringValue
-            
+                self.lblUpdatedTimeStamp.text = successReturnObject["items"][0]["update_timestamp"].stringValue*/
+                self.sucessObject = successReturnObject
+                self.updateUI()
                 print("reuslt:",successReturnObject)
                 
             }, failure: { (failureReturnObject) in
@@ -63,8 +70,86 @@ class ViewController: UIViewController {
         checkweather()
     }
     @IBAction func segmentAction(_ sender: UISegmentedControl) {
-        
+        checkweather()
+       // self.updateUI()
         self.tblview.reloadData()
+        
+    }
+    
+    func updateUI(){
+      
+        if(segmentCtrl.selectedSegmentIndex == 0){
+            lbltblviewTitle.text = "24-hr PSI"
+            psireading = PSIReadings.init(sucessObject["items"][0]["readings"]["psi_twenty_four_hourly"])
+            self.lblEast.text = psireading.east
+            self.lblWest.text = psireading.west
+            self.lblNorth.text = psireading.north
+            self.lblSouth.text = psireading.south
+            self.lblCenter.text = psireading.central
+            self.lblUpdatedTimeStamp.text = sucessObject["items"][0]["update_timestamp"].stringValue
+            lblColor(lbl: lblEast, reading:psireading.east! )
+            lblColor(lbl: lblWest, reading:psireading.west!)
+            lblColor(lbl: lblNorth, reading:psireading.north!)
+            lblColor(lbl: lblSouth, reading:psireading.south!)
+            lblColor(lbl: lblCenter, reading:psireading.central!)
+        }else{
+            
+            //Lbl Color
+            psireading = PSIReadings.init(sucessObject["items"][0]["readings"]["pm25_twenty_four_hourly"])
+            
+            self.lblEast.textColor = UIColor.lightGray
+            self.lblWest.textColor = UIColor.lightGray
+            self.lblNorth.textColor = UIColor.lightGray
+            self.lblSouth.textColor = UIColor.lightGray
+            self.lblCenter.textColor = UIColor.lightGray
+            
+             lbltblviewTitle.text = "1-hr PM2.5 conc."
+            self.lblEast.text = bandLevel(reading:psireading.east!)
+            self.lblWest.text = bandLevel(reading:psireading.west!)
+            self.lblNorth.text = bandLevel(reading:psireading.north!)
+            self.lblSouth.text = bandLevel(reading:psireading.south!)
+            self.lblCenter.text = bandLevel(reading:psireading.central!)
+            self.lblUpdatedTimeStamp.text = sucessObject["items"][0]["update_timestamp"].stringValue
+            
+          
+            
+        }
+        
+    }
+    
+    func bandLevel(reading:String) -> String{
+       
+        let readingIntval = Int(reading)
+        var band = ""
+        if(readingIntval! <= 55){
+            band = " I"
+        }else  if(readingIntval! <= 150){
+              band = " II"
+        }else if(readingIntval! <= 250){
+              band = " III"
+        }else if(readingIntval! > 250){
+              band = " IV"
+        }
+        
+        return reading + band
+    }
+    
+    func lblColor(lbl:UILabel, reading:String) {
+        
+        let readingIntval = Int(reading)
+        
+        if(readingIntval! <= 50){
+            lbl.textColor =  UIColor(red: 30/255, green: 177/255, blue: 136/255, alpha: 1.0)
+        }else  if(readingIntval! <= 100){
+           lbl.textColor = UIColor(red: 63/255, green: 133/255, blue: 187/255, alpha: 1.0)
+        }else if(readingIntval! <= 200){
+            lbl.textColor =  UIColor(red: 238/255, green: 138/255, blue: 15/255, alpha: 1.0)
+        }else if(readingIntval! <= 300){
+            lbl.textColor = UIColor(red: 198/255, green: 63/255, blue: 5/255, alpha: 1.0)
+        }else if(readingIntval! > 300){
+            lbl.textColor = UIColor(red: 176/255, green: 36/255, blue: 33/255, alpha: 1.0)
+        }
+        
         
     }
     
@@ -87,8 +172,37 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource{
         
         let cell = tableView.dequeueReusableCell(withIdentifier:"PSICell") as! PSICell
         let dict = selectedPSIArr[indexPath.row]
-        cell.lblHeader.text = dict.keys.first
-        cell.lblValue.text = dict.values.first
+        cell.lblHeader.text = dict.values.first
+        cell.lblValue.text = dict.keys.first
+        
+        if segmentCtrl.selectedSegmentIndex == 0{
+            switch(indexPath.row){
+            case 0:
+                cell.lblHeader.textColor = UIColor(red: 30/255, green: 177/255, blue: 136/255, alpha: 1.0)
+                cell.lblValue.textColor = UIColor(red: 30/255, green: 177/255, blue: 136/255, alpha: 1.0)
+            case 1:
+                cell.lblHeader.textColor = UIColor(red: 63/255, green: 133/255, blue: 187/255, alpha: 1.0)
+                cell.lblValue.textColor = UIColor(red: 63/255, green: 133/255, blue: 187/255, alpha: 1.0)
+            case 2 :
+                cell.lblHeader.textColor = UIColor(red: 238/255, green: 138/255, blue: 15/255, alpha: 1.0)
+                cell.lblValue.textColor = UIColor(red: 238/255, green: 138/255, blue: 15/255, alpha: 1.0)
+            case 3 :
+                cell.lblHeader.textColor = UIColor(red: 198/255, green: 63/255, blue: 5/255, alpha: 1.0)
+                cell.lblValue.textColor = UIColor(red: 198/255, green: 63/255, blue: 5/255, alpha: 1.0)
+            case 4 :
+                cell.lblHeader.textColor =  UIColor(red: 176/255, green: 36/255, blue: 33/255, alpha: 1.0)
+                cell.lblValue.textColor = UIColor(red: 176/255, green: 36/255, blue: 33/255, alpha: 1.0)
+            default:
+                cell.lblHeader.textColor = UIColor.lightGray
+                cell.lblValue.textColor = UIColor.lightGray
+                
+            }
+            
+        }else{
+            cell.lblHeader.textColor = UIColor.lightGray
+            cell.lblValue.textColor = UIColor.lightGray
+        }
+        
         cell.selectionStyle = .none
         return cell
     }
