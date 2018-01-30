@@ -16,9 +16,10 @@ class ApiManager {
      var resultKey: String = ""
     var sessionManager: SessionManager?
     var configuration: URLSessionConfiguration = URLSessionConfiguration.default
+    var appID :String!
 
     init() {
-        
+        self.appID = "Ix57qqZdWZ94uRak5DtCQqhKRjUVQoV4"
         self.configuration = URLSessionConfiguration.default
         self.configuration.timeoutIntervalForRequest = 20 // currently set to 60 due to big D-Data, should set to 20 or 30 later after the D-Data optimization is done
         self.sessionManager = Alamofire.SessionManager(configuration:configuration) // server trust policy here
@@ -35,7 +36,7 @@ class ApiManager {
     }
     
     @discardableResult
-    func makeGetRequestToEndPoint(endPoint: String, params: [String: Any], success: @escaping (_ successReturnObject: JSON) -> Void, failure: @escaping (_ failReturnObject: JSON) -> Void) -> DataRequest? {
+    func makeGetRequestToEndPoint(success: @escaping (_ successReturnObject: JSON) -> Void, failure: @escaping (_ failReturnObject: JSON) -> Void) -> DataRequest? {
         print("zzzzzzzz:\(self.ddmmyyhhmmssFromDate(Date()))")
         let endPoint = "https://api.data.gov.sg/v1/environment/psi?date_time=\(self.ddmmyyhhmmssFromDate(Date()))"//2018-01-29T01:45:00
         
@@ -53,18 +54,18 @@ class ApiManager {
                                failure: @escaping (_ failReturnObject: JSON) -> Void) -> DataRequest? {
         
         let strUrl: String = endPoint
-        let mutableUrlRequest: NSMutableURLRequest = NSMutableURLRequest(url: URL(string:strUrl)!, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval.init(20)) // currently set to 60 due to big D-Data, should set to 20 or 30 later after the D-Data optimization is done
+        let mutableUrlRequest: NSMutableURLRequest = NSMutableURLRequest(url: URL(string:strUrl)!, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval.init(20))
         mutableUrlRequest.httpMethod = String(describing: httpMethod)
       
         print("apiUrl : + \(strUrl)")
     
         var headers: HTTPHeaders = HTTPHeaders.init()
-        headers.updateValue("Ix57qqZdWZ94uRak5DtCQqhKRjUVQoV4", forKey: "api-key")
+        headers.updateValue(appID, forKey: "api-key")
       
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
-        var request = self.sessionManager?.request(strUrl, method: httpMethod, parameters: nil, encoding: URLEncoding.httpBody, headers: headers)
+        let request = self.sessionManager?.request(strUrl, method: httpMethod, parameters: nil, encoding: URLEncoding.httpBody, headers: headers)
         
         request?.validate()
         request?.responseJSON { response in
@@ -98,9 +99,8 @@ class ApiManager {
         return request
     }
     
-    func checkAppVersion( _ success: @escaping (_ successReturnObject: JSON) -> Void, failure: @escaping (_ failReturnObject: JSON) -> Void) {
-        //ApiManagerss.makeGetRequestToEndPoint(endPoint: "", params: ["":""], success: success, failure: failure)
-        makeGetRequestToEndPoint(endPoint: "", params: ["":""], success: success, failure: failure)
+    func getRequest( _ success: @escaping (_ successReturnObject: JSON) -> Void, failure: @escaping (_ failReturnObject: JSON) -> Void) {
+        makeGetRequestToEndPoint(success: success, failure: failure)
     }
 
 }

@@ -21,6 +21,7 @@
 		D57A0569201ED031006102F3 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57A0568201ED031006102F3 /* ApiManager.swift */; };
 		D59F0BFA201ED92A00A4E4F3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59F0BF9201ED92A00A4E4F3 /* Constants.swift */; };
 		D59F0BFC2020169100A4E4F3 /* PSIItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59F0BFB2020169100A4E4F3 /* PSIItemModel.swift */; };
+		D59F0C0020203CD000A4E4F3 /* SG_UnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59F0BFD202037A700A4E4F3 /* SG_UnitTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		D57A0568201ED031006102F3 /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		D59F0BF9201ED92A00A4E4F3 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D59F0BFB2020169100A4E4F3 /* PSIItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSIItemModel.swift; sourceTree = "<group>"; };
+		D59F0BFD202037A700A4E4F3 /* SG_UnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SG_UnitTest.swift; sourceTree = "<group>"; };
 		FFCE17FF91ACC65E43A2BAA4 /* Pods_SG_PSITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SG_PSITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -155,6 +157,7 @@
 				D57A0541201EC3EA006102F3 /* Assets.xcassets */,
 				D57A0543201EC3EA006102F3 /* LaunchScreen.storyboard */,
 				D57A0546201EC3EA006102F3 /* Info.plist */,
+				D59F0BFD202037A700A4E4F3 /* SG_UnitTest.swift */,
 			);
 			path = SG_PSI;
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 				5D699713201F87FB00C693C5 /* PSICell.swift in Sources */,
 				D57A0569201ED031006102F3 /* ApiManager.swift in Sources */,
 				D57A053B201EC3EA006102F3 /* AppDelegate.swift in Sources */,
+				D59F0C0020203CD000A4E4F3 /* SG_UnitTest.swift in Sources */,
 				D59F0BFA201ED92A00A4E4F3 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -42,13 +42,8 @@ class ViewController: UIViewController {
     
     func checkweather() {
             
-            ApiManagerss.checkAppVersion( { (successReturnObject) in
-                /*self.lblEast.text = successReturnObject["items"][0]["readings"]["psi_twenty_four_hourly"]["east"].stringValue
-                self.lblWest.text = successReturnObject["items"][0]["readings"]["psi_twenty_four_hourly"]["west"].stringValue
-                self.lblNorth.text = successReturnObject["items"][0]["readings"]["psi_twenty_four_hourly"]["north"].stringValue
-                self.lblSouth.text = successReturnObject["items"][0]["readings"]["psi_twenty_four_hourly"]["south"].stringValue
-                self.lblCenter.text = successReturnObject["items"][0]["readings"]["psi_twenty_four_hourly"]["central"].stringValue
-                self.lblUpdatedTimeStamp.text = successReturnObject["items"][0]["update_timestamp"].stringValue*/
+            ApiManagerss.getRequest( { (successReturnObject) in
+            
                 self.sucessObject = successReturnObject
                 self.updateUI()
                 print("reuslt:",successReturnObject)
@@ -63,9 +58,7 @@ class ViewController: UIViewController {
         
         
     }
-//     func checkAppVersion( _ success: @escaping (_ successReturnObject: JSON) -> Void, failure: @escaping (_ failReturnObject: JSON) -> Void) {
-//        ApiManagerss.makeGetRequestToEndPoint(endPoint: "", params: ["":""], success: success, failure: failure)
-//    }
+
     @IBAction func refreshAction(_ sender: Any) {
         checkweather()
     }
